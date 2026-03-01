@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  background: #f3f3f3;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  width: 280px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.card__image {
+  width: 100%;
+  display: block;
+}
+.card__content {
+  padding: 15px;
+}
+.card__title {
+  margin: 0 0 10px;
+  color: #333;
+}
+.card__description {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/*# sourceMappingURL=output.css.map */

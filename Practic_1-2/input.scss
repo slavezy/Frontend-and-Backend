@@ -1,0 +1,61 @@
+// Asakov Vyacheslav
+// Asakov Vyacheslav
+// Asakov Vyacheslav
+// Asakov Vyacheslav
+
+$primary-color: #6c5ce7;
+$text-color: #333;
+$card-bg: #ffffff;
+$radius: 14px;
+
+@mixin button($bg) {
+  padding: 10px 20px;
+  background: $bg;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s;
+
+  &:hover {
+    background: darken($bg, 10%);
+  }
+}
+
+body {
+  margin: 0;
+  background: #f3f3f3;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  width: 280px;
+  background: $card-bg;
+  border-radius: $radius;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+
+  &__image {
+    width: 100%;
+    display: block;
+  }
+
+  &__content {
+    padding: 15px;
+  }
+
+  &__title {
+    margin: 0 0 10px;
+    color: $text-color;
+  }
+
+  &__description {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: $text-color;
+  }
+}
