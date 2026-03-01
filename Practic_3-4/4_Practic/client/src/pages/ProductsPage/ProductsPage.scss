@@ -1,0 +1,35 @@
+.page {
+  padding: 20px;
+}
+
+.productRow {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+.page {
+  padding: 40px;
+  background: #0f172a;
+  min-height: 100vh;
+  color: white;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
