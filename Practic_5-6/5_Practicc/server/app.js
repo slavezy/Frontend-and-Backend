@@ -10,8 +10,6 @@ const port = 3000;
 
 app.use(express.json());
 
-app.use("/images", express.static(path.join(__dirname, "images")));
-
 app.use(cors({
   origin: "http://localhost:3001",
   methods: ["GET", "POST", "PATCH", "DELETE"],
@@ -33,16 +31,16 @@ app.use((req, res, next) => {
 
 // ===== PRODUCTS =====
 let products = [
-  { id: nanoid(6), title: "iPhone 15", category: "Смартфоны", description: "Apple смартфон", price: 120000, stock: 5, image : "https://c.dns-shop.ru/thumb/st1/fit/500/500/41edbfdd1b4ef4a38f3ac15b85e02902/2258685cc32bbd96de406852bd9b2d94916029658cd6fa120a9f97a4bc0af297.jpg.webp" },
-  { id: nanoid(6), title: "Samsung S24", category: "Смартфоны", description: "Samsung флагман", price: 110000, stock: 6, image: "/images/samsung" },
-  { id: nanoid(6), title: "MacBook Air", category: "Ноутбуки", description: "Лёгкий ноутбук", price: 150000, stock: 3, image: "https://www.apple.com/macbook-air/" },
-  { id: nanoid(6), title: "ASUS ROG", category: "Ноутбуки", description: "Игровой ноутбук", price: 180000, stock: 2, image: "https://rog.asus.com/laptops/" },
-  { id: nanoid(6), title: "AirPods Pro", category: "Аксессуары", description: "Наушники Apple", price: 25000, stock: 12, image: "https://www.apple.com/airpods-pro/" },
-  { id: nanoid(6), title: "Sony XM5", category: "Аксессуары", description: "Премиум наушники", price: 30000, stock: 7, image: "https://www.sony.com/electronics/headband-headphones/wh-1000xm5" },
-  { id: nanoid(6), title: "iPad Pro", category: "Планшеты", description: "Планшет Apple", price: 90000, stock: 4, image: "https://www.apple.com/ipad-pro/" },
-  { id: nanoid(6), title: "Xiaomi Pad 6", category: "Планшеты", description: "Планшет Xiaomi", price: 40000, stock: 8, image: "https://www.mi.com/global/product/xiaomi-pad-6/" },
-  { id: nanoid(6), title: "PlayStation 5", category: "Консоли", description: "Игровая приставка Sony", price: 70000, stock: 5, image: "https://www.playstation.com/ps5/" },
-  { id: nanoid(6), title: "Xbox Series X", category: "Консоли", description: "Игровая приставка Microsoft", price: 65000, stock: 4, image: "https://www.xbox.com/consoles/xbox-series-x" }
+  { id: nanoid(6), title: "iPhone 15", category: "Смартфоны", description: "Apple смартфон", price: 120000, stock: 5, image: "https://iceapple.ru/image/cache/catalog/!!iphone15/ijnb2hvv2sovmg0cgbrvkkpskbj4mqt0-600x600.jpeg" },
+  { id: nanoid(6), title: "Samsung S24", category: "Смартфоны", description: "Samsung флагман", price: 110000, stock: 6, image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600" },
+  { id: nanoid(6), title: "MacBook Air", category: "Ноутбуки", description: "Лёгкий ноутбук", price: 150000, stock: 3, image: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600" },
+  { id: nanoid(6), title: "ASUS ROG", category: "Ноутбуки", description: "Игровой ноутбук", price: 180000, stock: 2, image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600" },
+  { id: nanoid(6), title: "AirPods Pro", category: "Аксессуары", description: "Наушники Apple", price: 25000, stock: 12, image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=600" },
+  { id: nanoid(6), title: "Sony XM5", category: "Аксессуары", description: "Премиум наушники", price: 30000, stock: 7, image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=600" },
+  { id: nanoid(6), title: "iPad Pro", category: "Планшеты", description: "Планшет Apple", price: 90000, stock: 4, image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600" },
+  { id: nanoid(6), title: "Xiaomi Pad 6", category: "Планшеты", description: "Планшет Xiaomi", price: 40000, stock: 8, image: "https://images.unsplash.com/photo-1589739900243-4b52cd9dd104?w=600" },
+  { id: nanoid(6), title: "PlayStation 5", category: "Консоли", description: "Игровая приставка Sony", price: 70000, stock: 5, image: "https://images.pexels.com/photos/3807682/pexels-photo-3807682.jpeg?w=600" },
+  { id: nanoid(6), title: "Xbox Series X", category: "Консоли", description: "Игровая приставка Microsoft", price: 65000, stock: 4, image: "https://images.pexels.com/photos/3807680/pexels-photo-3807680.jpeg?w=600" }
 ];
 
 // ===== SWAGGER =====
@@ -90,13 +88,16 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *           type: number
  *         stock:
  *           type: number
+ *         image:
+ *           type: string
  *       example:
- *         id: "abc123"s
+ *         id: "abc123"
  *         title: "iPhone 15"
  *         category: "Смартфоны"
  *         description: "Apple смартфон"
  *         price: 120000
  *         stock: 5
+ *         image: "https://images.unsplash.com/photo-1592286927505-1def25115558?w=600"
  */
 
 function findProductOr404(id, res) {
@@ -124,25 +125,21 @@ app.get("/api/products", (req, res) => {
 
 /**
  * @swagger
- * /api/products:
- *   post:
- *     summary: Создать новый товар
+ * /api/products/{id}:
+ *   get:
+ *     summary: Получить товар по ID
  *     tags: [Products]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Product'
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
  *     responses:
- *       201:
- *         description: Товар успешно создан
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
- *       400:
- *         description: Ошибка в данных
+ *       200:
+ *         description: Товар найден
+ *       404:
+ *         description: Товар не найден
  */
 app.get("/api/products/:id", (req, res) => {
   const product = findProductOr404(req.params.id, res);
@@ -156,9 +153,20 @@ app.get("/api/products/:id", (req, res) => {
  *   post:
  *     summary: Создать новый товар
  *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       201:
+ *         description: Товар успешно создан
+ *       400:
+ *         description: Ошибка в данных
  */
 app.post("/api/products", (req, res) => {
-  const { title, category, description, price, stock } = req.body;
+  const { title, category, description, price, stock, image } = req.body;
 
   if (!title || !category || !description)
     return res.status(400).json({ error: "Invalid data" });
@@ -168,8 +176,9 @@ app.post("/api/products", (req, res) => {
     title: title.trim(),
     category: category.trim(),
     description: description.trim(),
-    price: Number(price),
-    stock: Number(stock)
+    price: price !== undefined ? Number(price) : undefined,
+    stock: stock !== undefined ? Number(stock) : undefined,
+    image: image || "https://placehold.co/600x400/EEE/31343C?text=No+Image"
   };
 
   products.push(newProduct);
@@ -204,13 +213,14 @@ app.patch("/api/products/:id", (req, res) => {
   const product = findProductOr404(req.params.id, res);
   if (!product) return;
 
-  const { title, category, description, price, stock } = req.body;
+  const { title, category, description, price, stock, image } = req.body;
 
   if (title !== undefined) product.title = title.trim();
   if (category !== undefined) product.category = category.trim();
   if (description !== undefined) product.description = description.trim();
   if (price !== undefined) product.price = Number(price);
   if (stock !== undefined) product.stock = Number(stock);
+  if (image !== undefined) product.image = image;
 
   res.json(product);
 });
@@ -221,6 +231,17 @@ app.patch("/api/products/:id", (req, res) => {
  *   delete:
  *     summary: Удалить товар
  *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Товар удален
+ *       404:
+ *         description: Товар не найден
  */
 app.delete("/api/products/:id", (req, res) => {
   const exists = products.some(p => p.id === req.params.id);
