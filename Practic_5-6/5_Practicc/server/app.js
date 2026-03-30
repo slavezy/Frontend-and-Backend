@@ -10,6 +10,8 @@ const port = 3000;
 
 app.use(express.json());
 
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 app.use(cors({
   origin: "http://localhost:3001",
   methods: ["GET", "POST", "PATCH", "DELETE"],
@@ -31,16 +33,16 @@ app.use((req, res, next) => {
 
 // ===== PRODUCTS =====
 let products = [
-  { id: nanoid(6), title: "iPhone 15", category: "Смартфоны", description: "Apple смартфон", price: 120000, stock: 5 },
-  { id: nanoid(6), title: "Samsung S24", category: "Смартфоны", description: "Samsung флагман", price: 110000, stock: 6 },
-  { id: nanoid(6), title: "MacBook Air", category: "Ноутбуки", description: "Лёгкий ноутбук", price: 150000, stock: 3 },
-  { id: nanoid(6), title: "ASUS ROG", category: "Ноутбуки", description: "Игровой ноутбук", price: 180000, stock: 2 },
-  { id: nanoid(6), title: "AirPods Pro", category: "Аксессуары", description: "Наушники Apple", price: 25000, stock: 12 },
-  { id: nanoid(6), title: "Sony XM5", category: "Аксессуары", description: "Премиум наушники", price: 30000, stock: 7 },
-  { id: nanoid(6), title: "iPad Pro", category: "Планшеты", description: "Планшет Apple", price: 90000, stock: 4 },
-  { id: nanoid(6), title: "Xiaomi Pad 6", category: "Планшеты", description: "Планшет Xiaomi", price: 40000, stock: 8 },
-  { id: nanoid(6), title: "PlayStation 5", category: "Консоли", description: "Игровая приставка Sony", price: 70000, stock: 5 },
-  { id: nanoid(6), title: "Xbox Series X", category: "Консоли", description: "Игровая приставка Microsoft", price: 65000, stock: 4 }
+  { id: nanoid(6), title: "iPhone 15", category: "Смартфоны", description: "Apple смартфон", price: 120000, stock: 5, image : "https://c.dns-shop.ru/thumb/st1/fit/500/500/41edbfdd1b4ef4a38f3ac15b85e02902/2258685cc32bbd96de406852bd9b2d94916029658cd6fa120a9f97a4bc0af297.jpg.webp" },
+  { id: nanoid(6), title: "Samsung S24", category: "Смартфоны", description: "Samsung флагман", price: 110000, stock: 6, image: "/images/samsung" },
+  { id: nanoid(6), title: "MacBook Air", category: "Ноутбуки", description: "Лёгкий ноутбук", price: 150000, stock: 3, image: "https://www.apple.com/macbook-air/" },
+  { id: nanoid(6), title: "ASUS ROG", category: "Ноутбуки", description: "Игровой ноутбук", price: 180000, stock: 2, image: "https://rog.asus.com/laptops/" },
+  { id: nanoid(6), title: "AirPods Pro", category: "Аксессуары", description: "Наушники Apple", price: 25000, stock: 12, image: "https://www.apple.com/airpods-pro/" },
+  { id: nanoid(6), title: "Sony XM5", category: "Аксессуары", description: "Премиум наушники", price: 30000, stock: 7, image: "https://www.sony.com/electronics/headband-headphones/wh-1000xm5" },
+  { id: nanoid(6), title: "iPad Pro", category: "Планшеты", description: "Планшет Apple", price: 90000, stock: 4, image: "https://www.apple.com/ipad-pro/" },
+  { id: nanoid(6), title: "Xiaomi Pad 6", category: "Планшеты", description: "Планшет Xiaomi", price: 40000, stock: 8, image: "https://www.mi.com/global/product/xiaomi-pad-6/" },
+  { id: nanoid(6), title: "PlayStation 5", category: "Консоли", description: "Игровая приставка Sony", price: 70000, stock: 5, image: "https://www.playstation.com/ps5/" },
+  { id: nanoid(6), title: "Xbox Series X", category: "Консоли", description: "Игровая приставка Microsoft", price: 65000, stock: 4, image: "https://www.xbox.com/consoles/xbox-series-x" }
 ];
 
 // ===== SWAGGER =====
@@ -89,7 +91,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *         stock:
  *           type: number
  *       example:
- *         id: "abc123"
+ *         id: "abc123"s
  *         title: "iPhone 15"
  *         category: "Смартфоны"
  *         description: "Apple смартфон"
